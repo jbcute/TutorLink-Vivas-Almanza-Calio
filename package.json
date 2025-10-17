@@ -1,0 +1,28 @@
+{
+  "name": "icctutor-lms",
+  "version": "1.0.0",
+  "description": "ICCTutor Learning Management System",
+  "main": "index.html",
+  "scripts": {
+    "dev": "wrangler pages dev . --port 5177",
+    "deploy": "wrangler pages deploy .",
+    "db:create": "wrangler d1 create icctutor_db",
+    "db:migrate": "wrangler d1 execute icctutor_db --file=./schema.sql",
+    "db:query": "wrangler d1 execute icctutor_db --command"
+  },
+  "keywords": [
+    "lms",
+    "education",
+    "cloudflare",
+    "pages"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251011.0",
+    "wrangler": "^3.114.15"
+  },
+  "dependencies": {
+    "jose": "^6.1.0"
+  }
+}

@@ -118,7 +118,7 @@
         
         .booking-header h3 {
             font-size: 1.5em;
-            color: #fff;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -135,7 +135,7 @@
         }
         
         .badge-pending {
-            background: rgba(255, 193, 7, 0.2);
+            background: rgba(255, 193, 7, 0.3);
             color: #ffc107;
             border: 1px solid #ffc107;
         }
@@ -167,19 +167,15 @@
             font-size: 1.3em;
         }
         
-        .info-content {
-            flex: 1;
-        }
-        
         .info-label {
             font-size: 0.85em;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 2px;
         }
         
         .info-value {
             font-weight: 600;
-            color: #fff;
+            color: #ffffff;
         }
         
         .booking-notes {
@@ -197,7 +193,7 @@
         }
         
         .booking-notes p {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .booking-actions {
@@ -265,41 +261,6 @@
             padding: 40px;
             font-size: 1.2em;
             color: rgba(255, 255, 255, 0.6);
-        }
-        
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            z-index: 10000;
-            backdrop-filter: blur(10px);
-            animation: slideInRight 0.3s ease;
-        }
-        
-        .notification.success {
-            background: rgba(60, 252, 197, 0.2);
-            border: 2px solid #3cfcc5;
-            color: #3cfcc5;
-        }
-        
-        .notification.error {
-            background: rgba(255, 71, 87, 0.2);
-            border: 2px solid #ff4757;
-            color: #ff6b81;
-        }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
         }
         
         @media (max-width: 768px) {
@@ -437,7 +398,7 @@
                         <div class="booking-info">
                             <div class="info-item">
                                 <span class="info-icon">📧</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Email</div>
                                     <div class="info-value">${escapeHtml(booking.student_email)}</div>
                                 </div>
@@ -445,7 +406,7 @@
                             
                             <div class="info-item">
                                 <span class="info-icon">💻</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Language</div>
                                     <div class="info-value">${escapeHtml(booking.language)}</div>
                                 </div>
@@ -453,7 +414,7 @@
                             
                             <div class="info-item">
                                 <span class="info-icon">📅</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Date</div>
                                     <div class="info-value">${formattedDate}</div>
                                 </div>
@@ -461,7 +422,7 @@
                             
                             <div class="info-item">
                                 <span class="info-icon">🕐</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Time</div>
                                     <div class="info-value">${escapeHtml(booking.time)}</div>
                                 </div>
@@ -469,7 +430,7 @@
                             
                             <div class="info-item">
                                 <span class="info-icon">⏱️</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Duration</div>
                                     <div class="info-value">${booking.duration} hour(s)</div>
                                 </div>
@@ -477,7 +438,7 @@
                             
                             <div class="info-item">
                                 <span class="info-icon">📍</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Meeting Type</div>
                                     <div class="info-value">${capitalizeFirst(booking.meeting_type)}</div>
                                 </div>
@@ -487,7 +448,7 @@
                         ${booking.location ? `
                             <div class="info-item" style="margin-bottom: 10px;">
                                 <span class="info-icon">🗺️</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Location</div>
                                     <div class="info-value">${escapeHtml(booking.location)}</div>
                                 </div>
@@ -497,7 +458,7 @@
                         ${booking.platform ? `
                             <div class="info-item" style="margin-bottom: 10px;">
                                 <span class="info-icon">💻</span>
-                                <div class="info-content">
+                                <div>
                                     <div class="info-label">Platform</div>
                                     <div class="info-value">${escapeHtml(booking.platform)}</div>
                                 </div>
@@ -602,7 +563,20 @@
 
         function showNotification(message, type) {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                background: ${type === 'success' ? 'rgba(60, 252, 197, 0.2)' : 'rgba(255, 71, 87, 0.2)'};
+                border: 2px solid ${type === 'success' ? '#3cfcc5' : '#ff4757'};
+                color: ${type === 'success' ? '#3cfcc5' : '#ff6b81'};
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+                backdrop-filter: blur(10px);
+            `;
             notification.textContent = message;
             document.body.appendChild(notification);
             
@@ -611,6 +585,20 @@
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
